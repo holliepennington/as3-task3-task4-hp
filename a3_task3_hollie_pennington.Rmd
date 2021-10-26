@@ -1,0 +1,62 @@
+---
+title: "a3_task3_hollie_pennington"
+author: "Hollie Pennington"
+date: "10/24/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(here)
+library(ggplot2)
+library(kableExtra)
+library(lubridate)
+```
+
+```{r}
+urchins <- read_csv(here("data", "urchins.csv"))
+```
+
+#Section 1: Size Comparisons: purple and red urchins 
+
+```{r}
+ggplot(data = urchins, aes(x = SIZE)) + #read in data for ggplot
+  geom_histogram(bins = 10) + #choose graph sytle and bin number
+  facet_wrap(~ COMMON_NAME) + #faceted by color (common name)
+  labs(x = "Urchin Diameter (cm)", title = "Purple VS Red Urchins Size Comparison") #labeled graph 
+```
+Figure 1: Shows the size in diameter (cm) in sea urchins based on color. 
+
+#Descriptive Statistics Table 
+
+```{r}
+urchins_table <- urchins %>% #name table from urchins data
+  group_by(COMMON_NAME) %>%  #group by the common name 
+  summarise(mean_size = mean(SIZE, na.rm = TRUE), #find mean 
+            sd_size = sd(SIZE, na.rm = TRUE), #find standard deviation
+            sample_size = n()) #find sample size 
+
+urchins_table #show table 
+
+urchins_table %>% #let kableExtra know where to pull data from 
+  kable(col.names = c("Species", "Mean Diameter (cm)", "Standard Deviation", "Samlple Size (n)")) %>% #named columns 
+  kable_styling(full_width = FALSE) #fixed width 
+```
+INSERT TEXT HERE FOR iii
+
+#Section 2
+
+```{r}
+purple_urchins <- urchins %>% #created new_named data set
+  filter(COMMON_NAME == "Purple Urchin") %>% #filtered for purple urchins
+  Date <- mdy(DATE) %>% #ask TA for help converting dates to date class
+  mutate(year = year(Date)) %>% # create new column with year 
+  mutate(site_full = case.when(
+    SITE %in% c(NAPL) ~ "Naples Reef", 
+    SITE %in% c(AQUE) ~ "Arroyo Quemado Reef",
+    SITE %in% c(CARP) ~ "Carpinteria Reef",
+    SITE %in% c(IVEE) ~ "Isla Vista Reef"
+  )
+```
+
