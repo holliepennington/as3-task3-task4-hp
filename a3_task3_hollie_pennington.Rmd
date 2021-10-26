@@ -52,11 +52,11 @@ purple_urchins <- urchins %>% #created new_named data set
   filter(COMMON_NAME == "Purple Urchin") %>% #filtered for purple urchins
   Date <- mdy(DATE) %>% #ask TA for help converting dates to date class
   mutate(year = year(Date)) %>% # create new column with year 
-  mutate(site_full = case.when(
+  mutate(site_full = case_when(
     SITE %in% c(NAPL) ~ "Naples Reef", 
     SITE %in% c(AQUE) ~ "Arroyo Quemado Reef",
     SITE %in% c(CARP) ~ "Carpinteria Reef",
     SITE %in% c(IVEE) ~ "Isla Vista Reef"
-  )
+  ))
 ```
 
