@@ -42,7 +42,7 @@ urchins_table <- urchins %>% #name table from urchins data
 urchins_table #show table 
 
 urchins_table %>% #let kableExtra know where to pull data from 
-  kable(col.names = c("Species", "Mean Diameter (cm)", "Standard Deviation", "Samlple Size (n)"), caption = "<b> TITLE </b> Insert text") %>% #named columns and added caption
+  kable(col.names = c("Species", "Mean Diameter (cm)", "Standard Deviation (cm)", "Samlple Size (n)"), caption = "<b> TITLE </b> Insert text") %>% #named columns and added caption
   kable_styling(full_width = FALSE) #fixed width 
 ```
 INSERT TEXT HERE FOR iii
@@ -74,4 +74,4 @@ ggplot(data = purple_urchins_table, aes(x = year, y = total, fill = Site)) +
   geom_col(position = position_dodge(), width = 0.75) + 
   labs(title = "Total Purple Urchins", x = "Year", y = "Number of Urchins")
 ```
-ADD TEXT HERE 
+ADD TEXT HERE to explain interpretation 
