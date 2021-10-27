@@ -12,6 +12,7 @@ library(here)
 library(ggplot2)
 library(kableExtra)
 library(lubridate)
+library(janitor)
 ```
 
 ```{r}
@@ -49,14 +50,15 @@ INSERT TEXT HERE FOR iii
 
 ```{r}
 purple_urchins <- urchins %>% #created new_named data set
-  filter(COMMON_NAME == "Purple Urchin") %>% #filtered for purple urchins
-  Date <- mdy(DATE) %>% #ask TA for help converting dates to date class
-  mutate(year = year(Date)) %>% # create new column with year 
+  clean_names() %>% 
+  filter(common_name == "Purple Urchin") %>% #filtered for purple urchins
+  mutate(date = mdy(date)) %>% #ask TA for help converting dates to date class
+  mutate(year = year(date)) %>% # create new column with year 
   mutate(site_full = case_when(
-    SITE %in% c(NAPL) ~ "Naples Reef", 
-    SITE %in% c(AQUE) ~ "Arroyo Quemado Reef",
-    SITE %in% c(CARP) ~ "Carpinteria Reef",
-    SITE %in% c(IVEE) ~ "Isla Vista Reef"
+    site %in% c("NAPL") ~ "Naples Reef", 
+    site %in% c("AQUE") ~ "Arroyo Quemado Reef",
+    site %in% c("CARP") ~ "Carpinteria Reef",
+    site %in% c("IVEE") ~ "Isla Vista Reef"
   ))
 ```
 
