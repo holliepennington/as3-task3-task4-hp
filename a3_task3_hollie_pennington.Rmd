@@ -13,6 +13,7 @@ library(ggplot2)
 library(kableExtra)
 library(lubridate)
 library(janitor)
+library(plotly)
 ```
 
 ```{r}
@@ -41,7 +42,7 @@ urchins_table <- urchins %>% #name table from urchins data
 urchins_table #show table 
 
 urchins_table %>% #let kableExtra know where to pull data from 
-  kable(col.names = c("Species", "Mean Diameter (cm)", "Standard Deviation", "Samlple Size (n)")) %>% #named columns 
+  kable(col.names = c("Species", "Mean Diameter (cm)", "Standard Deviation", "Samlple Size (n)"), caption = "<b> TITLE </b> Insert text") %>% #named columns and added caption
   kable_styling(full_width = FALSE) #fixed width 
 ```
 INSERT TEXT HERE FOR iii
@@ -52,13 +53,25 @@ INSERT TEXT HERE FOR iii
 purple_urchins <- urchins %>% #created new_named data set
   clean_names() %>% 
   filter(common_name == "Purple Urchin") %>% #filtered for purple urchins
-  mutate(date = mdy(date)) %>% #ask TA for help converting dates to date class
+  mutate(date = mdy(date)) %>% #created date 
   mutate(year = year(date)) %>% # create new column with year 
-  mutate(site_full = case_when(
+  mutate(Site = case_when(
     site %in% c("NAPL") ~ "Naples Reef", 
     site %in% c("AQUE") ~ "Arroyo Quemado Reef",
     site %in% c("CARP") ~ "Carpinteria Reef",
     site %in% c("IVEE") ~ "Isla Vista Reef"
-  ))
+  )) #change site names from abbreviations to full names
 ```
 
+```{r}
+purple_urchins_table <- purple_urchins %>% #create new data frame
+  group_by(Site, year) %>% #grouped for site and year
+  summarize(total = n()) #found total for year and site 
+```
+
+```{r}
+ggplot(data = purple_urchins_table, aes(x = year, y = total, fill = Site)) +
+  geom_col(position = position_dodge(), width = 0.75) + 
+  labs(title = "Total Purple Urchins", x = "Year", y = "Number of Urchins")
+```
+ADD TEXT HERE 
