@@ -17,15 +17,16 @@ library(plotly)
 ```
 
 ```{r}
-urchins <- read_csv(here("data", "urchins.csv"))
+urchins <- read_csv(here("data", "urchins.csv")) %>% 
+  clean_names
 ```
 
 #Section 1: Size Comparisons: purple and red urchins 
 
 ```{r}
-ggplot(data = urchins, aes(x = SIZE)) + #read in data for ggplot
+ggplot(data = urchins, aes(x = size)) + #read in data for ggplot
   geom_histogram(bins = 10) + #choose graph sytle and bin number
-  facet_wrap(~ COMMON_NAME) + #faceted by color (common name)
+  facet_wrap(~ common_name) + #faceted by color (common name)
   labs(x = "Urchin Diameter (cm)", title = "Purple VS Red Urchins Size Comparison") #labeled graph 
 ```
 Figure 1: Shows the size in diameter (cm) in sea urchins based on color. 
@@ -34,9 +35,9 @@ Figure 1: Shows the size in diameter (cm) in sea urchins based on color.
 
 ```{r}
 urchins_table <- urchins %>% #name table from urchins data
-  group_by(COMMON_NAME) %>%  #group by the common name 
-  summarise(mean_size = mean(SIZE, na.rm = TRUE), #find mean 
-            sd_size = sd(SIZE, na.rm = TRUE), #find standard deviation
+  group_by(common_name) %>%  #group by the common name 
+  summarise(mean_size = mean(size, na.rm = TRUE), #find mean 
+            sd_size = sd(size, na.rm = TRUE), #find standard deviation
             sample_size = n()) #find sample size 
 
 urchins_table #show table 
@@ -51,7 +52,6 @@ INSERT TEXT HERE FOR iii
 
 ```{r}
 purple_urchins <- urchins %>% #created new_named data set
-  clean_names() %>% 
   filter(common_name == "Purple Urchin") %>% #filtered for purple urchins
   mutate(date = mdy(date)) %>% #created date 
   mutate(year = year(date)) %>% # create new column with year 
@@ -72,6 +72,8 @@ purple_urchins_table <- purple_urchins %>% #create new data frame
 ```{r}
 ggplot(data = purple_urchins_table, aes(x = year, y = total, fill = Site)) +
   geom_col(position = position_dodge(), width = 0.75) + 
-  labs(title = "Total Purple Urchins", x = "Year", y = "Number of Urchins")
+  labs(title = "Total Purple Urchins", x = "Year", y = "Number of Urchins") + 
+  theme(legend.position = c(0.8, 0.75), 
+        legend.key.size = unit(.35, 'cm'))
 ```
 ADD TEXT HERE to explain interpretation 
