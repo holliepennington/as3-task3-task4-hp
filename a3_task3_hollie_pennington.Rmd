@@ -6,7 +6,7 @@ output: html_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, warnings = FALSE)
+knitr::opts_chunk$set(echo = TRUE, warnings = FALSE, messages = FALSE)
 library(tidyverse)
 library(here)
 library(ggplot2)
@@ -37,17 +37,18 @@ The purple urchin data is skewed to the right. The red urchin data has a semi no
 ```{r}
 urchins_table <- urchins %>% #name table from urchins data
   group_by(common_name) %>%  #group by the common name 
-  summarise(mean_size = mean(size, na.rm = TRUE), #find mean 
+  summarise(mean_size = mean(size, na.rm = TRUE), #find mean
+            median_size = median(size, na.rm = TRUE), #find median
             sd_size = sd(size, na.rm = TRUE), #find standard deviation
             sample_size = n()) #find sample size 
 
 urchins_table #show table 
 
 urchins_table %>% #let kableExtra know where to pull data from 
-  kable(col.names = c("Species", "Mean Diameter (cm)", "Standard Deviation (cm)", "Samlple Size (n)"), caption = "<b> Table 1 </b> Table compares mean diameter in cm, standard deviation in cm, and sample size number between purple and red urchins") %>% #named columns and added caption
+  kable(col.names = c("Species", "Mean Diameter (cm)", "Median Diamter (cm)", "Standard Deviation (cm)", "Samlple Size (n)"), caption = "<b> Table 1 </b> Table compares mean diameter in cm, median diameter in cm, standard deviation in cm, and sample size number between purple and red urchins. The purple urchin's data has a mean diameter is around 4.47 cm with a standard deviation of 1.2 cm from a population of 31805. The red urchin's data has a mean diameter of 6.78 cm with a standard deviation of 1.9 cm from a population size of 27408.") %>% #named columns and added caption
   kable_styling(full_width = FALSE) #fixed width 
 ```
-The purple urchin's data has a mean diameter is around 4.47 cm with a standard deviation of 1.2 cm from a population of 31805. The red urchin's data has a mean diameter of 6.78 cm with a standard deviation of 1.9 cm from a population size of 27408. The red urchins have a larger mean diameter than the purple urchins. 
+The red urchins has a 2.31 cm larger mean diameter than the purple urchins. The percent difference between mean diameter is 34%. (I made this graph and the next appear in my knitted document because I wanted to practice it.)
 
 #Section 2
 
@@ -77,4 +78,4 @@ ggplot(data = purple_urchins_table, aes(x = year, y = total, fill = Site)) +
   theme(legend.position = c(0.8, 0.7), 
         legend.key.size = unit(.3, 'cm'), )
 ```
-The data in this graph shows a semi normal distribution with a slight skew to the right. The years 2009, 2010, and 2011 had the highest counts of purple urchins. 
+The data in this graph shows a semi normal distribution with a slight skew to the right. The years 2009, 2010, and 2011 had the highest counts of purple urchins. I do think graph reflects changes in the purple urchin graph. I think in the years after 2012 the number of urchins decreases and then stays at a steady rate. I would have to run a p-test before discovering if the data is significant. There are a number of factors that can explain the decrease including temperature warming, increased pollution, less food, or lack of gestation habitats. 
