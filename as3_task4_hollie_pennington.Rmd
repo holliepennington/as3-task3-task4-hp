@@ -31,11 +31,11 @@ purples_NAPL <- urchins_clean %>% #created new data frame with just purple from 
 ```{r}
 ggplot(data = purples_NAPL, aes(x= size)) + 
   geom_histogram() +  # create histogram for size
-  facet_wrap("treatment") + #seperate by treatment
+  facet_wrap("treatment") + #separate by treatment
   labs(title = "Size of Purple Urchins in Annual vs Control treatments", x = "Size (cm)", y = "Number of Urchins", caption = "Table 1: Compares the size in diamter between annual and control treatment sites. \n  The annual treatment site has a higher nunber of urchins with the diamter is 3 cm. \n The control treatment site has a higher number of urchins with diameter of 4cm.") #correct labels 
 ```
 
-The annual graph has a semi normal distribution with a small skew to the right. The control site has a normal distribution. 
+#The annual graph has a semi normal distribution with a small skew to the right. The control site has a normal distribution.  
 
 ```{r}
 NAPL_pu_table <- purples_NAPL %>% 
@@ -50,4 +50,5 @@ NAPL_pu_table %>%
   kable(col.names = c("Treatment", "Mean Diameter (cm)", "Median Diamter (cm)", "Standard Deviation (cm)", "Sample Size"), caption = "<b> Table 1: </b> This table shows the treament is mean diameter (cm), standard deviation (cm), and sample size for different treatment sites.") %>% 
   kable_styling(full_width = FALSE)
 ```
-The annual and control sites have a 5% difference with the annual have a smaller mean diameter (cm) than the control. The annual treatment site has a mean diameter than is 0.21 cm shorter than the control site.  
+
+#The annual and control sites have a 5% difference with the annual have a smaller mean diameter (cm) than the control. The annual treatment site has a mean diameter than is 0.21 cm shorter than the control site.  
