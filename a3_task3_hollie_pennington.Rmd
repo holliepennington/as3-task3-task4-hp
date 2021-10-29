@@ -46,11 +46,11 @@ urchins_table <- urchins %>% #name table from urchins data
 urchins_table #show table 
 
 urchins_table %>% #let kableExtra know where to pull data from 
-  kable(col.names = c("Species", "Mean Diameter (cm)", "Median Diamter (cm)", "Standard Deviation (cm)", "Samlple Size (n)"), caption = "<b> Table 1 </b> Table compares mean diameter in cm, median diameter in cm, standard deviation in cm, and sample size number between purple and red urchins. The purple urchin's data has a mean diameter is around 4.47 cm with a standard deviation of 1.2 cm from a population of 31805. The red urchin's data has a mean diameter of 6.78 cm with a standard deviation of 1.9 cm from a population size of 27408.") %>% #named columns and added caption
+  kable(col.names = c("Species", "Mean Diameter (cm)", "Median Diamter (cm)", "Standard Deviation (cm)", "Sample Size (n)"), caption = "<b> Table 1 </b> Table compares mean diameter in cm, median diameter in cm, standard deviation in cm, and sample size number between purple and red urchins. The purple urchin's data has a mean diameter is around 4.47 cm with a standard deviation of 1.2 cm from a population of 31805. The red urchin's data has a mean diameter of 6.78 cm with a standard deviation of 1.9 cm from a population size of 27408.") %>% #named columns and added caption
   kable_styling(full_width = FALSE) #fixed width 
 ```
 
-#The red urchins has a 2.31 cm larger mean diameter than the purple urchins. The percent difference between mean diameter is 34%. (I made this graph and the next appear in my knitted document because I wanted to practice it.)
+#The red urchins has a 2.31 cm larger mean diameter than the purple urchins. The percent difference between mean diameter is 34%. (I made this table appear in my knitted document because I wanted to practice it.)
 
 #Section 2
 
