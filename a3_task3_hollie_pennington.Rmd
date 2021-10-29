@@ -6,7 +6,7 @@ output: html_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE, warnings = FALSE)
 library(tidyverse)
 library(here)
 library(ggplot2)
@@ -27,9 +27,10 @@ urchins <- read_csv(here("data", "urchins.csv")) %>%
 ggplot(data = urchins, aes(x = size)) + #read in data for ggplot
   geom_histogram(bins = 10) + #choose graph sytle and bin number
   facet_wrap(~ common_name) + #faceted by color (common name)
-  labs(x = "Urchin Diameter (cm)", title = "Purple VS Red Urchins Size Comparison") #labeled graph 
+  labs(x = "Urchin Diameter (cm)", title = "Purple VS Red Urchins Size Comparison", caption = "Figure 1: Shows the distribution of size in diameter (cm) in purple sea urchins compared to \n red sea urchins.") + #labeled graphs
+  theme_minimal()
 ```
-Figure 1: Shows the size in diameter (cm) in sea urchins based on color. 
+The purple urchin data is skewed to the right. The red urchin data has a semi normal distribution. 
 
 #Descriptive Statistics Table 
 
@@ -43,10 +44,10 @@ urchins_table <- urchins %>% #name table from urchins data
 urchins_table #show table 
 
 urchins_table %>% #let kableExtra know where to pull data from 
-  kable(col.names = c("Species", "Mean Diameter (cm)", "Standard Deviation (cm)", "Samlple Size (n)"), caption = "<b> Table 1 </b> Insert text") %>% #named columns and added caption
+  kable(col.names = c("Species", "Mean Diameter (cm)", "Standard Deviation (cm)", "Samlple Size (n)"), caption = "<b> Table 1 </b> Table compares mean diameter in cm, standard deviation in cm, and sample size number between purple and red urchins") %>% #named columns and added caption
   kable_styling(full_width = FALSE) #fixed width 
 ```
-INSERT TEXT HERE FOR iii
+The purple urchin's data has a mean diameter is around 4.47 cm with a standard deviation of 1.2 cm from a population of 31805. The red urchin's data has a mean diameter of 6.78 cm with a standard deviation of 1.9 cm from a population size of 27408. The red urchins have a larger mean diameter than the purple urchins. 
 
 #Section 2
 
@@ -72,8 +73,8 @@ purple_urchins_table <- purple_urchins %>% #create new data frame
 ```{r}
 ggplot(data = purple_urchins_table, aes(x = year, y = total, fill = Site)) +
   geom_col(position = position_dodge(), width = 0.75) + 
-  labs(title = "Total Purple Urchins", x = "Year", y = "Number of Urchins") + 
-  theme(legend.position = c(0.8, 0.75), 
-        legend.key.size = unit(.35, 'cm'))
+  labs(title = "Total Purple Urchins", x = "Year", y = "Number of Urchins", caption = "Figure 2: Graph showing total number of purple urchins found in various sites from years \n 2008 to 2020. Sites include Arroyo Quemado Reef, Caprinteria Reef, Isla Vista Reef, \n Naples Reef, and not recoreded on a beach. The year 2009 had the highest number \n of total urchins in every beach site. Carpinteria Reef was the single beach with the \n higest recorded purple urchin count.") + 
+  theme(legend.position = c(0.8, 0.7), 
+        legend.key.size = unit(.3, 'cm'), )
 ```
-ADD TEXT HERE to explain interpretation 
+The data in this graph shows a semi normal distribution with a slight skew to the right. The years 2009, 2010, and 2011 had the highest counts of purple urchins. 
