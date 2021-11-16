@@ -5,8 +5,8 @@ date: "10/27/2021"
 output: html_document
 ---
 
-```{r setup, include=TRUE, message = FALSE}
-knitr::opts_chunk$set(echo = TRUE, warnings = FALSE, message = FALSE)
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warnings = FALSE, messages = FALSE)
 library(here)
 library(janitor)
 library(tidyverse)
@@ -28,23 +28,14 @@ purples_NAPL <- urchins_clean %>% #created new data frame with just purple from 
   filter(common_name == "Purple Urchin") #filtered for Purple Urchins only 
 ```
 
-```{r, fig.cap= "<b>test</b> test"}
+```{r}
 ggplot(data = purples_NAPL, aes(x= size)) + 
   geom_histogram() +  # create histogram for size
   facet_wrap("treatment") + #separate by treatment
-  labs(title = "Size of Purple Urchins in Annual vs Control treatments", x = "Size (cm)", y = "Number of Urchins", caption = "Figure 1: Compares the size in diamter between annual and control treatment sites. \n  The annual treatment site has a higher nunber of urchins with the diamter is 3 cm. \n The control treatment site has a higher number of urchins with diameter of 4cm.") #correct labels 
+  labs(title = "Size of Purple Urchins in Annual vs Control treatments", x = "Size (cm)", y = "Number of Urchins", caption = "Table 1: Compares the size in diamter between annual and control treatment sites. \n  The annual treatment site has a higher nunber of urchins with the diamter is 3 cm. \n The control treatment site has a higher number of urchins with diameter of 4cm.") #correct labels 
 ```
 
 #The annual graph has a semi normal distribution with a small skew to the right. The control site has a normal distribution.  
-
-```{r}
-ggplot(data = purples_NAPL, aes(sample = size)) + 
-  geom_qq()
-  
-```
-
-Here is where I should have written takeaways. This looks like it is close to a line so it probably normally distributed. 
-
 
 ```{r}
 NAPL_pu_table <- purples_NAPL %>% 
@@ -56,8 +47,7 @@ NAPL_pu_table <- purples_NAPL %>%
             ) #found summary statistics
 
 NAPL_pu_table %>% 
-  kable(col.names = c("Treatment", "Mean Diameter (cm)", "Median Diamter (cm)", "Standard Deviation (cm)", "Sample Size"), 
-        caption = "<b> Table 1: </b> This table shows the treament is mean diameter (cm), standard deviation (cm), and sample size for different treatment sites.") %>% 
+  kable(col.names = c("Treatment", "Mean Diameter (cm)", "Median Diamter (cm)", "Standard Deviation (cm)", "Sample Size"), caption = "<b> Table 1: </b> This table shows the treament is mean diameter (cm), standard deviation (cm), and sample size for different treatment sites.") %>% 
   kable_styling(full_width = FALSE)
 ```
 
