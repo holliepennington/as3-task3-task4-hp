@@ -5,8 +5,8 @@ date: "10/24/2021"
 output: html_document
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, warnings = FALSE, messages = FALSE)
+```{r setup, include=TRUE, message = FALSE}
+knitr::opts_chunk$set(echo = TRUE, warnings = FALSE, message = FALSE)
 library(tidyverse)
 library(here)
 library(ggplot2)
@@ -43,10 +43,15 @@ urchins_table <- urchins %>% #name table from urchins data
             sd_size = sd(size, na.rm = TRUE), #find standard deviation
             sample_size = n()) #find sample size 
 
-urchins_table #show table 
 
-urchins_table %>% #let kableExtra know where to pull data from 
-  kable(col.names = c("Species", "Mean Diameter (cm)", "Median Diamter (cm)", "Standard Deviation (cm)", "Sample Size (n)"), caption = "<b> Table 1 </b> Table compares mean diameter in cm, median diameter in cm, standard deviation in cm, and sample size number between purple and red urchins. The purple urchin's data has a mean diameter is around 4.47 cm with a standard deviation of 1.2 cm from a population of 31805. The red urchin's data has a mean diameter of 6.78 cm with a standard deviation of 1.9 cm from a population size of 27408.") %>% #named columns and added caption
+  kable(urchins_table,
+        digits = 2,
+    col.names = c("Species",
+                  "Mean Diameter (cm)", 
+                  "Median Diamter (cm)", 
+                  "Standard Deviation (cm)",
+                  "Sample Size (n)"), 
+    caption = "<b> Table 1 </b> Table compares mean diameter in cm, median diameter in cm, standard deviation in cm, and sample size number between purple and red urchins. The purple urchin's data has a mean diameter is around 4.47 cm with a standard deviation of 1.2 cm from a population of 31805. The red urchin's data has a mean diameter of 6.78 cm with a standard deviation of 1.9 cm from a population size of 27408.") %>% #named columns and added caption
   kable_styling(full_width = FALSE) #fixed width 
 ```
 
